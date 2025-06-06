@@ -64,6 +64,12 @@ void ao(){
 	analogWrite(motor2B, 1023);
 	analogWrite(motor2A, 1023);
 }
+void mst(){
+	analogWrite(motor1B, 0);
+	analogWrite(motor1A, 0);
+	analogWrite(motor2B, 0);
+	analogWrite(motor2A, 0);
+}
 void softTone(int frequency, int duration) {
   long period = 1000000L / frequency; // คาบเวลา (microseconds)
   long cycles = (long)frequency * duration / 1000; // จำนวนรอบที่ต้องทำ
@@ -92,6 +98,7 @@ void GenieBot_setup() {
   analogWriteResolution(10);
   analogWriteRange(1023);
   pinMode(15, INPUT_PULLUP);
+  pinMode(14, INPUT_PULLUP);
   buzzer(500,100);
   adc.begin(10, 11, 12, 13);
   Wire.begin();
@@ -396,7 +403,7 @@ void PID_set_Pin(int S0,int S1,int S2,int S3,int S4,int S5,int S6,int S7,int S8)
   PID_SetupPin[4] = S4;PID_SetupPin[5] = S5;PID_SetupPin[6] = S6;PID_SetupPin[7] = S7;PID_SetupPin[8] = S8;
 }
 void setCalibrate(int round){
-  buzzer(500,100);
+  // buzzer(500,100);
 
   // display.clear();
   // display.setFont(ArialMT_Plain_24);
@@ -404,7 +411,7 @@ void setCalibrate(int round){
   // display.drawString(0,25,"  Calribrate  ");
   // display.display();
   if(first_state_for_calribrate == 0){
-    for (uint8_t i = 0; i < PID_NumPin; i++)
+    for (uint8_t i = 0; i < 9; i++)
     {
       PID_Max[i] = 0;
       PID_Min[i] = 1023;
@@ -412,14 +419,14 @@ void setCalibrate(int round){
     first_state_for_calribrate = 1;
   }
   for(int roundOfCalribtate = 0; roundOfCalribtate < round ;roundOfCalribtate++ ){
-    for (uint8_t i = 0; i < PID_NumPin; i++)
+    for (uint8_t i = 0; i < 9; i++)
     {
       if(ADC(PID_SetupPin[i]) > PID_Max[i] || PID_Max[i] >= 1023 ){
         PID_Max[i]  = ADC(PID_SetupPin[i]);
         if(PID_Max[i] > 1023 )PID_Max[i] = 1023;
       }
     }
-    for (uint8_t i = 0; i < PID_NumPin; i++)
+    for (uint8_t i = 0; i < 9; i++)
     {
       if(ADC(PID_SetupPin[i]) < PID_Min[i] || PID_Min[i] == 0){
         PID_Min[i] = ADC(PID_SetupPin[i]);
@@ -428,7 +435,7 @@ void setCalibrate(int round){
     }
     delay(1);
   }
-  buzzer(500,100);
+  // buzzer(500,100);
 }
 int ReadSensorMinValue(uint8_t _Pin){
     return PID_Min[_Pin];
@@ -635,10 +642,17 @@ void Run_PID(int RUN_PID_speed, float RUN_PID_KP, float RUN_PID_KD) {
 
 
 
-bool Read_status_sensor(int pin_sensor){
-	return ADC(PID_SetupPin[pin_sensor]) < ((PID_Max[pin_sensor] + PID_Min[pin_sensor]) / 2) ? true : false;
-}
+// bool Read_status_sensor(int pin_sensor){
+// 	return ADC(PID_SetupPin[pin_sensor]) < ((PID_Max[pin_sensor] + PID_Min[pin_sensor]) / 2) ? true : false;
+// }
+bool Read_status_sensor(int pin_sensor) {
+    const float percent = 0.4; // ใช้ 30%
+    int minVal = PID_Min[pin_sensor];
+    int maxVal = PID_Max[pin_sensor];
+    int threshold = minVal + (maxVal - minVal) * percent;
 
+    return ADC(PID_SetupPin[pin_sensor]) < threshold ? true : false;
+}
 
 int Read_sumValue_sensor(){
 	int value = 0;
