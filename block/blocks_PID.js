@@ -546,6 +546,22 @@ Blockly.Blocks['PID_readSumSensor_B'] = {
   }
 };
 
+Blockly.Blocks['Read_number_of_sum'] = {
+  init: function() {
+    this.appendDummyInput()
+      .appendField("เซ็นเซอร์จับสีดำทั้งหมด")
+      .appendField(new Blockly.FieldDropdown([["2", "200"],["2.5", "250"],["3", "300"],["3.5", "350"],
+                                              ["4", "400"],["4.5", "450"],["5", "500"],["5.5", "550"],["6", "600"]]), "number_ofsum");
+    this.appendDummyInput()
+        .appendField("ตัว");
+
+    this.setInputsInline(true);
+    this.setOutput(true, "Number");
+    this.setColour(330);
+    this.setTooltip("");
+  }
+};
+
 
 
 

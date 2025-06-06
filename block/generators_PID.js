@@ -132,6 +132,14 @@ Blockly.JavaScript['Read_Ref_Front_Sensor'] = function(block) {
   code += '(ReadSensorMinValue(' + value_Sensor_Pin+')+ReadSensorMaxValue(' + value_Sensor_Pin+'))/2';
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+Blockly.JavaScript['Read_number_of_sum'] = function(block) {
+ 
+  var value_number_ofsum = block.getFieldValue('number_ofsum');
+  
+  var code = '';
+  code += '' + value_number_ofsum+'';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
 
 Blockly.JavaScript['Read_Status_Front_Sensor'] = function(block) {
  

@@ -1,7 +1,6 @@
 const dirIcon = Vue.prototype.$global.board.board_info.dir;
 module.exports = {
     base_blocks : [ // use "blocks : [ " in normally situation but this need to override base block from esp-idf platforms
-
     	        {
             name : 'GenieBot',
             index: 1,
@@ -255,9 +254,34 @@ module.exports = {
             color : '230',
             icon: `file:///${dirIcon}/static/travel.jpg`,
             blocks : [
-                'Move_start',
-                'Move_back',
-                'Move_chopsticks',
+                {xml:
+                      `<block type="Move_start">
+                            
+                            <value name="S0">
+                                 <shadow type="math_number">
+                                        <field name="NUM">1100</field>
+                                </shadow>
+                            </value>
+                        </block>`
+                },
+                'move_turn_by_angle',
+                // {xml:
+                //       `<block type="Move_back">
+                            
+                //             <value name="S0">
+                //                  <shadow type="math_number">
+                //                         <field name="NUM">400</field>
+                //                 </shadow>
+                //             </value>
+                //         </block>`
+                // },
+                {xml:
+                      `<block type="Move_chopsticks">     
+                            <value name="S0"><shadow type="math_number"><field name="NUM">4200</field></shadow></value>
+                            <value name="S1"><shadow type="math_number"><field name="NUM">90</field></shadow></value>
+                            <value name="S2"><shadow type="math_number"><field name="NUM">120</field></shadow></value>
+                        </block>`
+                },
                 {xml:
                       `<block type="Turn_ultil_check_Sensor">
                             
@@ -304,10 +328,8 @@ module.exports = {
                                 <field name="NUM">30</field>
                             </shadow>
                             </value>
-                            <value name="S1">
-                            <shadow type="math_number">
-                                <field name="NUM">450</field>
-                            </shadow>
+                             <value name="S1">
+                                  <block type="Read_number_of_sum" />
                             </value>
                         </block>`
                 },
@@ -316,7 +338,7 @@ module.exports = {
                             
                             <value name="S0">
                             <shadow type="math_number">
-                                <field name="NUM">25</field>
+                                <field name="NUM">10</field>
                             </shadow>
                             </value>
                             <value name="S1">
@@ -326,18 +348,47 @@ module.exports = {
                             </value>
                         </block>`
                 },
-                'move_turn_by_angle',
-                'Move_To_partA',
-                'Move_To_partJ',
-                'Move_To_partL',
-                'Move_To_partB',
-                'Move_To_partC',
-                'Move_To_partD',
+                {xml:`<block type="move_check_back">
+                            <value name="S0"><shadow type="math_number"><field name="NUM">20</field></shadow></value>
+                    </block>`
+                },
+                
+                {xml:`<block type="Move_To_partA">
+                            <value name="S0"><shadow type="math_number"><field name="NUM">3200</field></shadow></value>
+                    </block>`
+                },
+                {xml:`<block type="Move_To_partJ">
+                            <value name="S0"><shadow type="math_number"><field name="NUM">2600</field></shadow></value>
+                    </block>`
+                },
+                {xml:`<block type="Move_To_partL">
+                            <value name="S0"><shadow type="math_number"><field name="NUM">2300</field></shadow></value>
+                    </block>`
+                },
+                {xml:`<block type="Move_To_partB">
+                            <value name="S0"><shadow type="math_number"><field name="NUM">3650</field></shadow></value>
+                    </block>`
+                },
+                
+                {xml:`<block type="Move_To_partD">
+                            <value name="S0"><shadow type="math_number"><field name="NUM">4500</field></shadow></value>
+                    </block>`
+                },
+                {xml:`<block type="Move_To_partI">
+                            <value name="S0"><shadow type="math_number"><field name="NUM">2300</field></shadow></value>
+                    </block>`
+                },
+                {xml:`<block type="Move_To_partC">
+                            <value name="S0"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+                    </block>`
+                },
                 'Move_To_partE',
+                'Move_To_partEE',
                 'Move_To_partF',
+                'Move_To_partFF',
                 'Move_To_partG',
+                'Move_To_partGG',
                 'Move_To_partH',
-                'Move_To_partI',
                 'Move_To_partK',
 
                 
@@ -581,7 +632,12 @@ module.exports = {
                     `<block type="PuppyBotmotor2WD">
                         <value name="speed">
                             <shadow type="math_number">
-                                <field name="NUM">50</field>
+                                <field name="NUM">30</field>
+                            </shadow>
+                        </value>
+                        <value name="timer">
+                            <shadow type="math_number">
+                                <field name="NUM">500</field>
                             </shadow>
                         </value>
                     </block>`
@@ -870,6 +926,7 @@ module.exports = {
               
               'PID_readSumSensor',
               "PID_readLine",
+              'Read_number_of_sum',
 
                 ]
         },

@@ -14,6 +14,7 @@ Blockly.JavaScript['PuppyBot'] = function(block) {
 Blockly.JavaScript['PuppyBotmotor2WD'] = function(block) {
   var dropdown_dir = block.getFieldValue('dir');
   var value_speed = Blockly.JavaScript.valueToCode(block, 'speed', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_timer = Blockly.JavaScript.valueToCode(block, 'timer', Blockly.JavaScript.ORDER_ATOMIC);
   //var code = 'motor(' + dropdown_ch + ', ' + dropdown_dir + ', ' + value_speed + ');\n';
   var code = '';
   if(dropdown_dir == '1'){code += 'motor(1,'+ value_speed +');\n motor(2,'+ value_speed +');';}
@@ -22,6 +23,7 @@ Blockly.JavaScript['PuppyBotmotor2WD'] = function(block) {
   if(dropdown_dir == '4'){code += 'motor(1,'+ value_speed +');\n motor(2,0);';}
   if(dropdown_dir == '5'){code += 'motor(1,-'+ value_speed +');\n motor(2,'+ value_speed +');';}
   if(dropdown_dir == '6'){code += 'motor(1,'+ value_speed +');\n motor(2,-'+ value_speed +');';}
+  code += 'delay('+ value_timer +');';
   return code;
 };
 Blockly.JavaScript['PuppyBotmotor4WD'] = function(block) {

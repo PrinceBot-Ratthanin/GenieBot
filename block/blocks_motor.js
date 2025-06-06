@@ -17,6 +17,9 @@ Blockly.Blocks['PuppyBotmotor2WD'] = {
       .appendField("speed");
     this.appendDummyInput()
       .appendField("%");
+    this.appendValueInput("timer")
+      .setCheck("Number")
+      .appendField("with time:");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
