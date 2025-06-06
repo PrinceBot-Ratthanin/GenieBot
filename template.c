@@ -38,7 +38,7 @@ void setup() {
   updateIMU_fine_offset_Yaw(200);
   resetContinuousYaw();
   for (int i = 0; i < 20; i++) updateContinuousYaw();
-  set_data_for_turnDirection(3, 10, 50, 2, 0.05);
+  set_data_for_turnDirection(1, 10, 50, 2, 0.05);
   PID_set_Min(300, 300, 400, 250, 100, 500, 400, 500,500);
   PID_set_Max(1000, 1023, 1023, 800, 1023, 1023, 1023, 1023, 1023);
 
@@ -48,7 +48,7 @@ void setup() {
   //Laser rangefinder begins to work
   sensor.start();
   
-  wait_SW1();
+  // wait_SW1();
   init_encoder();
 
 

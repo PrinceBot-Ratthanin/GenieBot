@@ -7,6 +7,6 @@ module.exports = {
   website: "https://PrinceBotShop.com",
   email: "print081@gmail.com",
   git: "https://github.com/PrinceBot-Ratthanin/GenieBot",
-  image: "/static/robot.jpg",
-  version: "2.6.0",
+  image: "/static/robot.png",
+  version: "2.8.0",
 };
